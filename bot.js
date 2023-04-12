@@ -62,4 +62,4 @@ function replaceVar(text, data) {
   return text.replace(regex, (m, $1) => data[$1] || m)
 }
 
-module.exports = bot
+module.exports = bot //44

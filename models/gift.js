@@ -13,7 +13,7 @@ module.exports = (sequelize, Sequelize) => {
         }
     }, {
         indexes: [{
-            unique: true,
+            unique: false,
             fields: ['tg_id']
         }]
     })

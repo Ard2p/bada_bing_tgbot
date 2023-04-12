@@ -52,6 +52,7 @@ bot.action('gift_roll', async ctx => {
     let date = moment().add(1, 'd').format('DD.MM HH:mm МСК') 
     await Menu.get(ctx, 'blank', { text: replaceVar(lang.gift_give, { date, gift }) })
   }).catch(async err => {
+    console.log(err)
     // await ctx.reply('Похоже этот столик уже занят, попробуйте еще раз!')
   })
 })

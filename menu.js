@@ -19,8 +19,8 @@ class Menu {
                 ],
                 [
                     Markup.button.webApp('🍷Меню', 'https://keen-rugelach-795916.netlify.app/'),
-                    Markup.button.callback('❤️‍🔥Крейзи', 'crazy'),
-                    Markup.button.callback('🍍Кальян', 'hookah')
+                    Markup.button.webApp('❤️‍🔥Крейзи', 'https://bada-bing.ru/'),
+                    Markup.button.webApp('🍍Кальян', 'https://cultlounge.ru/')
                 ], [
                     Markup.button.callback(lang.about_btn, 'about'),
                     Markup.button.url(lang.vk_btn, lang.vk_url)

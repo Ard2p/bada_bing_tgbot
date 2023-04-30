@@ -1,5 +1,5 @@
 const { Telegraf, session, Scenes: { Stage } } = require('telegraf')
-const moment = require('moment'); 
+const moment = require('moment');
 
 const DB = require('./models')
 const Menu = require('./menu')
@@ -7,7 +7,29 @@ const lang = require('./lang.js')
 
 const bot = new Telegraf(process.env.TOKEN_TG)
 
-bot.start(ctx => {
+bot.on('contact', async ctx => {
+  let tg_id = ctx.message.chat.id
+ 
+  if (!await isAuth(tg_id)) {
+    if (ctx.message.contact.user_id == tg_id) {
+      await DB.user.create({
+        tg_id: tg_id,
+        phone: ctx.message.contact.phone_number
+      }).then(async () => {
+        return await Menu.get(ctx, 'menu')
+        // await Menu.get(ctx, 'blank', { text: replaceVar(lang.gift_give, { date, gift }) })
+      }).catch(async err => {
+        console.log(err)
+        await ctx.reply('Ой, что то пошло не так!')
+      })
+    }
+  }
+})
+
+bot.start(async ctx => {
+  let tg_id = ctx.message.chat.id
+  if (!await isAuth(tg_id)) return Menu.get(ctx, 'auth')
+
   return Menu.get(ctx, 'menu')
 })
 
@@ -33,7 +55,7 @@ bot.action('gift', async ctx => {
   })
 
   if (giftDB) {
-    let date = moment(giftDB.createdAt).add(1, 'd').format('DD.MM HH:mm МСК') 
+    let date = moment(giftDB.createdAt).add(1, 'd').format('DD.MM HH:mm МСК')
     let gift = giftDB.gift
     return Menu.get(ctx, 'blank', { text: replaceVar(lang.gift_give, { date, gift }) })
   } else return Menu.get(ctx, 'gift')
@@ -49,7 +71,7 @@ bot.action('gift_roll', async ctx => {
     tg_id: tg_id,
     gift: gift
   }).then(async () => {
-    let date = moment().add(1, 'd').format('DD.MM HH:mm МСК') 
+    let date = moment().add(1, 'd').format('DD.MM HH:mm МСК')
     await Menu.get(ctx, 'blank', { text: replaceVar(lang.gift_give, { date, gift }) })
   }).catch(async err => {
     console.log(err)
@@ -57,9 +79,21 @@ bot.action('gift_roll', async ctx => {
   })
 })
 
+
+
 function replaceVar(text, data) {
   var regex = new RegExp('{(' + Object.keys(data).join('|') + ')}', 'g')
   return text.replace(regex, (m, $1) => data[$1] || m)
+}
+
+async function isAuth(tg_id) {
+  let user = await DB.user.findOne({
+    where: { tg_id: tg_id }
+  })
+
+  if (user) return true
+
+  return false
 }
 
 module.exports = bot

@@ -15,6 +15,9 @@ module.exports = (sequelize, Sequelize) => {
         indexes: [{
             unique: true,
             fields: ['tg_id']
+        },{
+            unique: true,
+            fields: ['phone']
         }]
     })
    

@@ -18,7 +18,7 @@ class Menu {
                     Markup.button.callback(lang.gift_btn, 'gift'),
                 ],
                 [
-                    Markup.button.webApp('🍷Меню', 'https://keen-rugelach-795916.netlify.app/'),
+                    Markup.button.webApp('🍷Меню', 'https://menu.restifyone.com/shalnaya_imperatrica'),
                     Markup.button.webApp('❤️‍🔥Крейзи', 'https://bada-bing.ru/'),
                     Markup.button.webApp('🍍Кальян', 'https://cultlounge.ru/')
                 ], [

@@ -3,8 +3,9 @@ require('dotenv').config()
 const DB = require('./models')
 const bot = require('./bot')
 
-
-DB.sequelize.sync({ force: true }).then(() => {
+// force: true
+// alter: true
+DB.sequelize.sync({ alter: true }).then(() => {
   console.log('Synced db.')
   bot.launch()
 }).catch((err) => {

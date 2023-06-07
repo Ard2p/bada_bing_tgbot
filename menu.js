@@ -8,7 +8,7 @@ class Menu {
             'auth': {
                 text: 'Добро пожаловать в регистрацию вашего аккаунта!\n\n' +
                     'Для регистрации в боте вам нужно будет подтвердить свою учетную запись, используя номер телефона.\n\n' +
-                    'Затем вам будет предоставлена возможность получить доступ к специальным предложениям и акциям, а также получить информацию о нашем клубе.\n' +
+                    'Затем вам будет предоставлена возможность получить доступ к специальным предложениям и акциям, а также получить информацию о нашем клубе.\n\n' +
                     'Присоединяйтесь к боту сейчас и получите свой первый подарок.',
                 keyboard: Markup.keyboard([[
                     Markup.button.contactRequest('Зарегистрироваться')
@@ -17,14 +17,17 @@ class Menu {
             'menu': {
                 text: lang.description,
                 keyboard: Markup.inlineKeyboard([[
-                    Markup.button.callback(lang.promo_btn, 'promo'),
-                    Markup.button.callback(lang.gift_btn, 'gift'),
+                    Markup.button.callback(lang.promo_btn, 'promo', true),
+                    Markup.button.callback(lang.gift_btn, 'gift', true),
                 ], [
+                    Markup.button.callback(lang.gift_btn, 'gift'),
                     Markup.button.webApp('🍷Меню', 'https://bada.ea-corp.ru/menu'),
                     Markup.button.webApp('❤️‍🔥Крейзи', 'https://bada-bing.ru/', true),
                     Markup.button.webApp('🍍Кальян', 'https://cultlounge.ru/', true)
                 ], [
-                    Markup.button.callback(lang.about_btn, 'about'),
+                    Markup.button.callback(lang.about_btn, 'about', true),  
+                    Markup.button.url('✈️Telegram', 'https://t.me/bada_bing_cheb'),
+                    Markup.button.url('📷Instagram', 'https://instagram.com/bada_bing21'),              
                     Markup.button.url(lang.vk_btn, lang.vk_url)
                 ]])
             },
